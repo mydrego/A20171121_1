@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,10 +18,12 @@ import java.util.ArrayList;
 public class baseAdapter extends BaseAdapter {
     ArrayList<String> data;
     Context context;
-    public baseAdapter(Context context, ArrayList<String> data)
-    {
+    public boolean chkArray[];
+
+    public baseAdapter(Context context, ArrayList<String> data) {
         this.context = context;
         this.data = data;
+        chkArray = new boolean[data.size()];
     }
 
     @Override
@@ -39,10 +43,31 @@ public class baseAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+        ViewHolder holder;
+        if (view == null) {
+
+        }else {
+
+        }
+
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.mylayout, null);
         TextView tv = (TextView) v.findViewById(R.id.textView);
         tv.setText(data.get(i));
+        final int p = i;
+        CheckBox chk = v.findViewById(R.id.checkBox);
+        chk.setChecked(chkArray[i]);
+        chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                chkArray[p] = b;
+            }
+        });
         return v;
+    }
+
+    static class ViewHolder {
+        TextView tv;
+        CheckBox chk;
     }
 }
