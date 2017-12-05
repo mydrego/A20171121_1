@@ -45,11 +45,15 @@ public class baseAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder holder;
         if (view == null) {
-
-        }else {
-
+            LayoutInflater inflater = LayoutInflater.from(context);
+            view = inflater.inflate(R.layout.mylayout, null);
+            holder = new ViewHolder();
+            holder.tv = (TextView) view.findViewById(R.id.textView);
+            holder.chk = (CheckBox) view.findViewById(R.id.checkBox);
+            view.setTag(holder);
+        } else {
+            holder = (ViewHolder) view.getTag();
         }
-
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.mylayout, null);
         TextView tv = (TextView) v.findViewById(R.id.textView);
