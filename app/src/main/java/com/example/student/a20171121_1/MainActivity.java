@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> mylist;
+    ArrayList<String> mypics;
     ListView lv;
     baseAdapter adapter;
 
@@ -25,12 +26,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mylist = new ArrayList<>();
+        mypics = new ArrayList<>();
         String data[] = getResources().getStringArray(R.array.mydata);
+        String pics[] = getResources().getStringArray(R.array.pics);
         for (String s : data) {
             mylist.add(s);
         }
+        for (String s : pics)
+        {
+            mypics.add(s);
+        }
         lv = (ListView) findViewById(R.id.listview);
-        adapter = new baseAdapter(this, mylist);
+        adapter = new baseAdapter(this, mylist, mypics);
         lv.setAdapter(adapter);
     }
 
@@ -68,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             builder.setNegativeButton("ESC", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
                 }
             });
             builder.show();

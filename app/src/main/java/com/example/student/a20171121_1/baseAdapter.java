@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -17,12 +20,14 @@ import java.util.ArrayList;
 
 public class baseAdapter extends BaseAdapter {
     ArrayList<String> data;
+    ArrayList<String> pics;
     Context context;
     public boolean chkArray[];
 
-    public baseAdapter(Context context, ArrayList<String> data) {
+    public baseAdapter(Context context, ArrayList<String> data, ArrayList<String> pics) {
         this.context = context;
         this.data = data;
+        this.pics = pics;
         chkArray = new boolean[data.size()];
     }
 
@@ -50,6 +55,7 @@ public class baseAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.tv = (TextView) view.findViewById(R.id.textView);
             holder.chk = (CheckBox) view.findViewById(R.id.checkBox);
+            holder.img = (ImageView) view.findViewById(R.id.imageView);
             view.setTag(holder);
         } else {
             holder = (ViewHolder) view.getTag();
@@ -64,14 +70,18 @@ public class baseAdapter extends BaseAdapter {
         chk.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                chkArray[p] = b;
+                if (chkArray.length - 1 >= p) {
+                    chkArray[p] = b;
+                }
             }
         });
+        Picasso.with(context).load(pics.get(i)).into(holder.img);
         return v;
     }
 
     static class ViewHolder {
         TextView tv;
         CheckBox chk;
+        ImageView img;
     }
 }
